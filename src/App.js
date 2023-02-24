@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react"
+import Card, { cards } from "./components/Card"
+import Score from "./components/Score"
+import Dialog from "./components/Dialog"
 
 function App() {
-  const cards = [{ name: "red", nameClass: "red", id: 1 },
-  { name: "Blue", nameClass: "blue", id: 2 },
-  { name: "Yellow", nameClass: "yellow", id: 3 },
-  { name: "Black", nameClass: "black", id: 4 },
-  { name: "Green", nameClass: "green", id: 5 },
-  { name: "Purple", nameClass: "purple", id: 6 },
-  { name: "Orange", nameClass: "orange", id: 7 },
-  { name: "Light Blue", nameClass: "light-blue", id: 8 }]
-
   const [selected, setSelected] = useState([])
   const [randomCards, setRandomCards] = useState(cards)
+  const [actualScore, setActualScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+  const [winning, setWinning] = useState(false);
+  const [lose, setLose] = useState(false);
 
   useEffect(() => {
+    if (actualScore === cards.length) {
+      setBestScore(actualScore);
+      setWinning(true);
+    }
+
     const buttons = [...document.querySelectorAll("button")];
     buttons.forEach(button => button.addEventListener("click", handleClick));
 
@@ -22,6 +25,11 @@ function App() {
       randomize();
     };
   }, [selected]);
+
+  const handleClick = (event) => {
+    setSelected(selected.concat(event.target.value));
+    updateScore(event.target.value);
+  }
 
   function randomize() {
     const cardsCopy = [...cards]
@@ -34,23 +42,34 @@ function App() {
     setRandomCards(cardsCopy);
   }
 
-  const handleClick = (event) => {
-    setSelected(selected.concat(event.target.value));
-    checkWinning(event.target.value);
-  }
-
-  function checkWinning(card) {
+  function updateScore(card) {
     const index = selected.indexOf(card);
     if (index > -1) {
-      console.log("oopsie!")
+      setLose(true);
+      if (actualScore > bestScore) {
+        setBestScore(actualScore);
+      }
+    } else {
+      setActualScore(actualScore + 1);
     }
+  }
+
+  function resetConditions() {
+    setActualScore(0);
+    setSelected([]);
+    setLose(false);
+    setWinning(false);
   }
 
   return (
     <>
       <h1>Memory Card Game</h1>
-      {randomCards.map(card => <button key={card.id} value={card.name}><div className={card.nameClass}></div><span>{card.name}</span></button>)}
+      <p>Get points by clicking on an image but don't click on any more than once!</p>
+      <Score actualScore={actualScore} bestScore={bestScore} />
+      {randomCards.map(card => <Card key={card.id} value={card.name} className={card.className} name={card.name} />)}
+      <Dialog lose={lose} winning={winning} resetConditions={resetConditions} />
     </>
   );
 }
+
 export default App;

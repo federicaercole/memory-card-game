@@ -6,43 +6,64 @@
 }
 
 body {
-  background-color: rgb(69, 83, 78);
+  background-color: #FBFCFE;
   font-family: 'Lato', sans-serif;
+  font-weight: normal;
 }
 
 main {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   max-width: 1000px;
   margin: 0 auto;
+  row-gap: 20px;
+}
+
+main p {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+main p:first-of-type {
+  grid-column: 1/7;
+}
+
+main p:first-of-type+p {
+  grid-column: 1/7;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 3px solid rgb(0, 0, 0);
+  padding: 10px;
 }
 
 h1 {
-  grid-column: 1/6;
+  grid-column: 1/7;
   justify-self: center;
+  margin: 30px 0;
 }
 
 button {
   border: 0;
   background-color: white;
-  width: 150px;
-  height: 200px;
-  margin: 10px;
+  width: 110px;
+  height: 150px;
+  justify-self: center;
   cursor: pointer;
   display: grid;
   padding: 10px;
   box-sizing: content-box;
   text-transform: uppercase;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-family: inherit;
   text-align: left;
   font-weight: 900;
-  letter-spacing: 0.09rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
 }
 
 button>div {
   width: 100%;
-  height: 150px;
+  height: 100px;
   pointer-events: none;
 }
 
@@ -51,19 +72,19 @@ button>div {
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: rgb(255, 234, 0);
 }
 
 .purple {
-  background-color: purple;
+  background-color: rgb(112, 3, 148);
 }
 
 .green {
-  background-color: green;
+  background-color: rgb(8, 83, 8);
 }
 
 .blue {
-  background-color: blue;
+  background-color: rgb(17, 17, 132);
 }
 
 .black {
@@ -78,6 +99,89 @@ button>div {
   background-color: orange;
 }
 
+.petrol {
+  background-color: #005f6a;
+}
+
+.pink {
+  background-color: pink;
+}
+
+.light-green {
+  background-color: #90EE90;
+}
+
+.sand {
+  background-color: #ece4d4;
+}
+
 button>span {
   pointer-events: none;
+}
+
+.dialog {
+  padding: 20px;
+  background-color: white;
+  z-index: 2;
+  width: 450px;
+  position: absolute;
+  left: calc(50vw - 225px);
+  top: 30%;
+}
+
+.dialog p {
+  font-size: 2.5rem;
+}
+
+.dialog button {
+  background-color: black;
+  padding: 10px;
+  color: white;
+  box-shadow: none;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  border: 3px solid transparent;
+}
+
+.dialog button:hover,
+.dialog button:active {
+  background-color: white;
+  color: black;
+  border-color: black;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+@keyframes hvr-pulse {
+  25% {
+    transform: scale(1.1);
+  }
+
+  75% {
+    transform: scale(0.9);
+  }
+}
+
+.hvr-pulse {
+  transform: perspective(1px) translateZ(0);
+}
+
+.hvr-pulse:hover,
+.hvr-pulse:active {
+  animation-name: hvr-pulse;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
