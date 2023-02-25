@@ -13,8 +13,7 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   margin: 0 auto;
   row-gap: 20px;
 }
@@ -26,11 +25,12 @@ main p {
 }
 
 main p:first-of-type {
-  grid-column: 1/7;
+  grid-column: 1/-1;
+  margin: 0 10px;
 }
 
 main p:first-of-type+p {
-  grid-column: 1/7;
+  grid-column: 1/-1;
   display: flex;
   justify-content: space-evenly;
   border-bottom: 3px solid rgb(0, 0, 0);
@@ -38,7 +38,7 @@ main p:first-of-type+p {
 }
 
 h1 {
-  grid-column: 1/7;
+  grid-column: 1/-1;
   justify-self: center;
   margin: 30px 0;
 }
@@ -184,4 +184,10 @@ button>span {
   animation-duration: 1s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+@media screen and (min-width: 1000px) {
+  main {
+    max-width: 1000px;
+  }
 }

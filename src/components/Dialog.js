@@ -1,21 +1,13 @@
 function Dialog(props) {
-    const { lose, winning, resetConditions } = props;
+    const { status, startNewGame } = props;
 
-    let message = "";
-
-    if (lose) {
-        message = "You lose!";
-    } else if (winning) {
-        message = "You win!";
-    }
-
-    if (message !== "") {
+    if (status !== "play") {
         return (
             <>
                 <div className="overlay"></div>
                 <div className="dialog">
-                    <p>{message}</p>
-                    <button type="button" onClick={resetConditions}>Start a new game</button>
+                    <p>{status === "lose" ? "Oops, you chose the same color twice!" : "Congratulations, you won the game!"}</p>
+                    <button type="button" onClick={startNewGame}>Start a new game</button>
                 </div>
             </>)
     }

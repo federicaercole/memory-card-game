@@ -1,12 +1,12 @@
 function Card(props) {
-    const { value, className, name } = props;
+    const { value, className, name, onClick } = props;
 
-    return (<button value={value} className="hvr-pulse"><div className={className}></div><span>{name}</span></button>)
+    return (<button value={value} className="hvr-pulse" onClick={onClick}><div className={className}></div><span>{name}</span></button>)
 }
 
 export default Card;
 
-export const cards = [{ name: "red", className: "red", id: 1 },
+export const cards = [{ name: "Red", className: "red", id: 1 },
 { name: "Blue", className: "blue", id: 2 },
 { name: "Yellow", className: "yellow", id: 3 },
 { name: "Black", className: "black", id: 4 },

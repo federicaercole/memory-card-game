@@ -8,22 +8,10 @@ function App() {
   const [randomCards, setRandomCards] = useState(cards)
   const [actualScore, setActualScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-  const [winning, setWinning] = useState(false);
-  const [lose, setLose] = useState(false);
+  const [status, setStatus] = useState("play");
 
   useEffect(() => {
-    if (actualScore === cards.length) {
-      setBestScore(actualScore);
-      setWinning(true);
-    }
-
-    const buttons = [...document.querySelectorAll("button")];
-    buttons.forEach(button => button.addEventListener("click", handleClick));
-
-    return () => {
-      buttons.forEach(button => button.removeEventListener("click", handleClick));
-      randomize();
-    };
+    randomize();
   }, [selected]);
 
   const handleClick = (event) => {
@@ -45,20 +33,23 @@ function App() {
   function updateScore(card) {
     const index = selected.indexOf(card);
     if (index > -1) {
-      setLose(true);
+      setStatus("lose");
       if (actualScore > bestScore) {
         setBestScore(actualScore);
       }
     } else {
       setActualScore(actualScore + 1);
+      if (actualScore === cards.length) {
+        setBestScore(actualScore);
+        setStatus("win");
+      }
     }
   }
 
-  function resetConditions() {
+  function startNewGame() {
     setActualScore(0);
     setSelected([]);
-    setLose(false);
-    setWinning(false);
+    setStatus("play");
   }
 
   return (
@@ -66,8 +57,8 @@ function App() {
       <h1>Memory Card Game</h1>
       <p>Get points by clicking on an image but don't click on any more than once!</p>
       <Score actualScore={actualScore} bestScore={bestScore} />
-      {randomCards.map(card => <Card key={card.id} value={card.name} className={card.className} name={card.name} />)}
-      <Dialog lose={lose} winning={winning} resetConditions={resetConditions} />
+      {randomCards.map(card => <Card key={card.id} value={card.name} className={card.className} onClick={handleClick} name={card.name} />)}
+      <Dialog status={status} startNewGame={startNewGame} />
     </>
   );
 }
