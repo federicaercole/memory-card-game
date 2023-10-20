@@ -11,8 +11,13 @@ function App() {
   const [status, setStatus] = useState("play");
 
   useEffect(() => {
+    if (actualScore === cards.length) {
+      setBestScore(actualScore);
+      setStatus("win");
+    }
+
     randomize();
-  }, [selected]);
+  }, [actualScore]);
 
   const handleClick = (event) => {
     setSelected(selected.concat(event.target.value));
@@ -39,10 +44,6 @@ function App() {
       }
     } else {
       setActualScore(actualScore + 1);
-      if (actualScore === cards.length) {
-        setBestScore(actualScore);
-        setStatus("win");
-      }
     }
   }
 

@@ -14,7 +14,7 @@ body {
 main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
   row-gap: 20px;
 }
 
@@ -59,6 +59,7 @@ button {
   text-align: left;
   font-weight: 900;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px;
+  color: black;
 }
 
 button>div {
@@ -178,8 +179,7 @@ button>span {
   transform: perspective(1px) translateZ(0);
 }
 
-.hvr-pulse:hover,
-.hvr-pulse:active {
+.hvr-pulse:hover {
   animation-name: hvr-pulse;
   animation-duration: 1s;
   animation-timing-function: linear;
